@@ -1,6 +1,0 @@
-c:\users\stian\documents\visual studio 2015\Projects\CsharpPractise\CsharpPractise\bin\Debug\CsharpPractise.exe.config
-c:\users\stian\documents\visual studio 2015\Projects\CsharpPractise\CsharpPractise\bin\Debug\CsharpPractise.exe
-c:\users\stian\documents\visual studio 2015\Projects\CsharpPractise\CsharpPractise\bin\Debug\CsharpPractise.pdb
-c:\users\stian\documents\visual studio 2015\Projects\CsharpPractise\CsharpPractise\obj\Debug\CsharpPractise.exe
-c:\users\stian\documents\visual studio 2015\Projects\CsharpPractise\CsharpPractise\obj\Debug\CsharpPractise.pdb
-C:\Users\Stian\Documents\Visual Studio 2015\Projects\CsharpPractise\CsharpPractise\obj\Debug\CsharpPractise.csprojResolveAssemblyReference.cache

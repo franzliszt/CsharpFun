@@ -70,8 +70,6 @@ namespace CsharpPractise {
             PrintDictionary(dictionary);
 
             WriteToFile(@"C:\Users\Stian\Desktop\test.txt", "Dette er en ny linje1.");
-            WriteToFile(@"C:\Users\Stian\Desktop\test.txt", "Dette er en ny linje1.");
-            WriteToFile(@"C:\Users\Stian\Desktop\test.txt", "Dette er en ny linje1.");
 
 
 
@@ -90,20 +88,20 @@ namespace CsharpPractise {
 
         private static Dictionary<char, Dictionary<char, int>> MapWordsAlphabetic(List<char> list) {
             Dictionary<char, Dictionary<char, int>> dictionary = new Dictionary<char, Dictionary<char, int>>();
-            IEnumerable<char> sortedCharacters = new SortedSet<char>(list); // ikke nødvendig, sorterer alfabetisk
-            // legger nøklene i en liste for iterasjon med lambda og fyller med tom <K, V>. 
+            SortedSet<char> sortedCharacters = new SortedSet<char>(list); // ikke nødvendig
             new List<char>(sortedCharacters).ForEach((char key) => dictionary.Add(key, new Dictionary<char, int>()));
-
-            // itererer gjennom nøkler og sjekker om de er der og prøver å hente verdien.
-            new List<char>(dictionary.Keys).ForEach((char key) => {
+            
+            new List<char>(list).ForEach((char key) => {
                 if (dictionary.ContainsKey(key)) {
-                    Dictionary<char, int> innerDictionary;
-                    if (dictionary.TryGetValue(key, out innerDictionary))
-                        innerDictionary[key]++;
-                    else
-                        innerDictionary.Add(key, 1);
-                } else
-                    dictionary.Add(key, new Dictionary<char, int>());
+                    Dictionary<char, int> inner;
+                    if (dictionary.TryGetValue(key, out inner)) {
+                        if (inner.ContainsKey(key)) 
+                            inner[key]++;
+                        else
+                            inner.Add(key, 1);
+                        
+                    }
+                }
             });
 
             return dictionary;
@@ -251,7 +249,7 @@ namespace CsharpPractise {
 
     internal class Derived : Base {
 
-        public void DoWork() {
+        public new void DoWork() {
             Console.WriteLine("DOwork declared from Derived");
         }
     }
