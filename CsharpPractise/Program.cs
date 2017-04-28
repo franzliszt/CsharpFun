@@ -10,6 +10,13 @@ namespace CsharpPractise {
     using System.Threading;
     using System.Diagnostics;
     public class Program {
+        /*
+        *****************************************************************************************
+            Dette klassen Program inneholder kun kode for å teste og lære nye aspekter i C#.
+            Dette innholdet må ikke brukes til å vurdere hvorvidt oppsett og struktur er god.
+            Det er kun små programmer som ikke skal brukes til annet enn å tilegne seg ny lærdom.
+        *****************************************************************************************
+        */
         internal static void Main(string[] args) {
             //A a = new D();
             //a.DoWork();
@@ -78,8 +85,7 @@ namespace CsharpPractise {
             
 
             YieldExample2();
-            Console.WriteLine();
-            Console.WriteLine();
+            Console.WriteLine("\n\n");
             ShowGalaxies();
 
 
