@@ -6,8 +6,11 @@ namespace CsharpPractise {
     using System.Collections.Generic;
     using System.IO;
     using System.Text.RegularExpressions;
-    class Program {
-        static void Main(string[] args) {
+    using System.Linq;
+    using System.Threading;
+    using System.Diagnostics;
+    public class Program {
+        internal static void Main(string[] args) {
             //A a = new D();
             //a.DoWork();
             //((D)a).DoWork();
@@ -15,7 +18,8 @@ namespace CsharpPractise {
             //Derived derived = new Derived();
             //derived.DoWork();
             //((Base)derived).DoWork();
-;
+            
+            
 
             int[] array2 = new int[] { 2, 6, 4, 8, 9, 5, 7, 1, 4, 55, 6, 8, 3, 8, 3, 31, 0 };
             //Console.WriteLine("\n\nSortedSet");
@@ -62,32 +66,90 @@ namespace CsharpPractise {
                 Console.WriteLine("Key: {0} => {1}", item.Key, item.Value);
 
 
-            Console.WriteLine("\n\nEnter a string:");
-            string input = Console.ReadLine();
-            Console.WriteLine("You wrote: {0}", input);
-            //SortedSet<char> set = new SortedSet<char>(CountCharactes(input).Keys); // alle nøkler
-            Dictionary<char, Dictionary<char, int>> dictionary = MapWordsAlphabetic(new List<char>(ToChar(input)));
-            PrintDictionary(dictionary);
+            //Console.WriteLine("\n\nEnter a string:");
+            //string input = Console.ReadLine();
+            //Console.WriteLine("You wrote: {0}", input);
+            ////SortedSet<char> set = new SortedSet<char>(CountCharactes(input).Keys); // alle nøkler
+            //IDictionary<char, Dictionary<char, int>> dictionary = MapWordsAlphabetic(new List<char>(ToChar(input)));
+            //PrintDictionary(dictionary);
 
-            WriteToFile(@"C:\Users\Stian\Desktop\test.txt", "Dette er en ny linje1.");
+            //WriteToFile(@"C:\Users\Stian\Desktop\test.txt", "Dette er en ny linje1.");
+            InterpolatedString("Donald", "Duck", "Andeby");
+            
 
+            YieldExample2();
+            Console.WriteLine();
+            Console.WriteLine();
+            ShowGalaxies();
 
 
             Console.WriteLine("\n\nPress a key to quit...");
             Console.ReadKey();
         }
 
+        public static void ShowGalaxies() {
+            var theGalaxies = new Galaxies();
+            foreach (Galaxy theGalaxy in theGalaxies.NextGalaxy) {
+                Console.WriteLine($"{theGalaxy.Name} {theGalaxy.MegaLightYears.ToString()}");
+            }
+        }
+
+        public static void YieldExample() {
+            foreach (int i in Power(2, 8)) {
+                Console.WriteLine($"{i} ");
+            }
+        }
+
+        private static IEnumerable<int> Power(int number, int exponent) {
+            int result = 1;
+            for (int i = 0; i < exponent; i++) {
+                result *= number;
+                yield return result;
+            }
+        }
+
+        public static void YieldExample2() {
+            var navn = "donald duck";
+            foreach (var letter in ToChar(navn)) {
+                Console.Write($"{letter}");
+            }
+        }
+
+        private static IEnumerable<char> Letters(char[] array) {
+            for (int i = 0; i < array.Length; i++) {
+                yield return array[i];
+            }
+        }
+
+        public static void InterpolatedString(string fname, string lname, string city) {
+            var output = $"Hello, {fname} {lname}. You live in {city}. 2 + 2 = {2 + 2}";
+            Console.WriteLine(output);
+        }
+
+        public static bool ValidateFirstname(string name) {
+            //string pattern = @"^[A-Z]{1}[a-z]{1,5}";
+            string pattern = @"^[a-zæøåA-zÆØÅ]{2,30}$";
+            Regex reg = new Regex(pattern);
+            return reg.IsMatch(name);
+        }
+
+        public static bool ValidateZipcode(string code) {
+            string pattern = @"^[0-9]{4}$";
+            Regex reg = new Regex(pattern);
+            return reg.IsMatch(code);
+        }
+
         private static Dictionary<char, int> CountWords(string input) {
             return null;
         }
 
-        private static char[] ToChar(string input) {
+        public static char[] ToChar(string input) {
             input = Regex.Replace(input, @"\s+", "");
             return input.ToCharArray();
         }
 
-        private static Dictionary<char, Dictionary<char, int>> MapWordsAlphabetic(List<char> list) {
-            Dictionary<char, Dictionary<char, int>> dictionary = new Dictionary<char, Dictionary<char, int>>();
+        public static IDictionary<char, Dictionary<char, int>> MapWordsAlphabetic(List<char> list) {
+            IDictionary<char, Dictionary<char, int>> dictionary = new Dictionary<char, Dictionary<char, int>>();
             SortedSet<char> sortedCharacters = new SortedSet<char>(list); // ikke nødvendig
             new List<char>(sortedCharacters).ForEach((char key) => dictionary.Add(key, new Dictionary<char, int>()));
             
@@ -99,7 +161,6 @@ namespace CsharpPractise {
                             inner[key]++;
                         else
                             inner.Add(key, 1);
-                        
                     }
                 }
             });
@@ -107,7 +168,7 @@ namespace CsharpPractise {
             return dictionary;
         }
 
-        private static void PrintDictionary(Dictionary<char, Dictionary<char, int>> dictionary) {
+        private static void PrintDictionary(IDictionary<char, Dictionary<char, int>> dictionary) {
             SortedSet<char> sorted = new SortedSet<char>(dictionary.Keys);
             new List<char>(sorted).ForEach(key => {
                 Console.WriteLine("{0}:", key.ToString().ToUpper());
@@ -117,6 +178,7 @@ namespace CsharpPractise {
                 }
             });
         }
+        
 
         private static void WriteToFile(string path, string newText) {
             using (StreamWriter writer = new StreamWriter(path)) {
@@ -241,13 +303,13 @@ namespace CsharpPractise {
 
     internal delegate void Delegate(String input);
 
-    internal class Base {
+    class Base {
         public virtual void DoWork() {
             Console.WriteLine("DoWork from Base");
         }
     }
 
-    internal class Derived : Base {
+    class Derived : Base {
 
         public new void DoWork() {
             Console.WriteLine("DOwork declared from Derived");
@@ -255,7 +317,7 @@ namespace CsharpPractise {
     }
 
 
-    internal class A {
+    class A {
         internal virtual void DoWork() {
             Console.WriteLine("Base class A");
         }
@@ -267,24 +329,43 @@ namespace CsharpPractise {
         }
     }
 
-    internal class B : A {
+    class B : A {
         internal new virtual void DoWork() {
             Console.WriteLine("Derived class B");
         }
     }
-    internal class C : B {
+    class C : B {
         internal sealed override void DoWork() {
             Console.WriteLine("Derived class C");
         }
     }
-    internal class D : C {
+     class D : C {
         internal new void DoWork() {
             Console.WriteLine("Derived class D new DoWork()");
         }
     }
 
-    internal struct GenericList<T> {
+    struct GenericList<T> {
         internal void Add(T input) { }
     }
 
-}
+    class Stian {
+        readonly string myName = "Stian";
+    }
+
+    class Galaxies {
+        public IEnumerable<Galaxy> NextGalaxy {
+            get {
+                yield return new Galaxy() { Name = "Tadpole", MegaLightYears = 400 };
+                yield return new Galaxy() { Name = "Pinwheel", MegaLightYears = 25 };
+                yield return new Galaxy() { Name = "Milky Way", MegaLightYears = 0 };
+                yield return new Galaxy() { Name = "Andromeda", MegaLightYears = 3 };
+            }
+        }
+    }
+
+    class Galaxy {
+        public String Name { get; set; }
+        public int MegaLightYears { get; set; }
+    }
+} // end namespace
