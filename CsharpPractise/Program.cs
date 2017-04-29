@@ -6,18 +6,55 @@ namespace CsharpPractise {
     using System.Collections.Generic;
     using System.IO;
     using System.Text.RegularExpressions;
-    using System.Linq;
     using System.Threading;
-    using System.Diagnostics;
+    class Product {
+        readonly string name;
+        public string Name { get; }
+        readonly decimal price;
+        public decimal Price { get; }
+
+        public Product(string name, decimal price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        public static List<Product> GetProductSamples() {
+            // spesifiserer navnene til argumentene
+            return new List<Product> {
+                new Product (name: "Computer", price: 9000),
+                new Product (name: "Screen", price: 4000),
+                new Product(name: "car", price: 500000)
+            };
+        }
+
+        public override string ToString() {
+            return string.Format($"{name}: {price}");
+        }
+    }
     public class Program {
         /*
         *****************************************************************************************
             Dette klassen Program inneholder kun kode for å teste og lære nye aspekter i C#.
             Dette innholdet må ikke brukes til å vurdere hvorvidt oppsett og struktur er god.
-            Det er kun små programmer som ikke skal brukes til annet enn å tilegne seg ny lærdom.
+            Det er kun små programmer som ikke skal brukes til annet enn ny lærdom.
         *****************************************************************************************
         */
         internal static void Main(string[] args) {
+            Console.WriteLine("Rectangular array:");
+           foreach (var i in YieldRectangularArray()) {
+                Console.Write($"{i} ");
+            }
+
+            Console.WriteLine("\nJagged array:");
+            foreach (var item in YieldJaggedArray()) {
+                Console.Write("{0} ", item);
+            }
+            //TestMemento.Test();
+            //string output = "\nDette er en melding til alle brukere av innenlands flyreiser:";
+            //foreach (var letter in output.ToCharArray()) {
+            //    Console.Write(letter);
+            //    Thread.Sleep(100);
+            //}
             //A a = new D();
             //a.DoWork();
             //((D)a).DoWork();
@@ -81,16 +118,106 @@ namespace CsharpPractise {
             //PrintDictionary(dictionary);
 
             //WriteToFile(@"C:\Users\Stian\Desktop\test.txt", "Dette er en ny linje1.");
-            InterpolatedString("Donald", "Duck", "Andeby");
-            
 
-            YieldExample2();
-            Console.WriteLine("\n\n");
-            ShowGalaxies();
 
+            int a, b;
+            Split(2343, out a, out b);
+
+            int randomNumber;
+            RandomNumber(out randomNumber);
+            //Console.WriteLine(Sum(2, 3, 2, 3, 2, 3, 2));
+
+            OptionalParamter(); // skriver ut 10, 0
+            OptionalParamter(100); // skriver ut 100, 0
+            OptionalParamter(y: 90); // skriver 10, 90
+            OptionalParamter(y: 9, x: 2); // skriver 2, 9 (x, y)
+
+            Console.WriteLine($"Kaller array: { NullOperator("k",null,"u")[0]?.ToUpper() ?? "NULLL" }");
 
             Console.WriteLine("\n\nPress a key to quit...");
             Console.ReadKey();
+        }
+
+        static string[] NullOperator(params string[] strings) {
+            string[] output = new string[strings.Length];
+
+            Console.WriteLine((strings[0]?.ToLower() != null) ? "Ikke null" : "Jeg var null");
+
+            for (int i = 0; i < strings.Length; i++) {
+                output[i] = strings[i] ?? "Jeg var null";
+            }
+            output[0] = strings[1]?.ToUpper();
+            return output;
+        }
+
+        static void OptionalParamter(int x = 10, int y = 0) {
+            Console.WriteLine($"Default paramterer er {x}, {y}");
+        }
+
+        static int Sum(params int[] ints) {
+            int sum = 0;
+            for (int i = 0; i < ints.Length; i++) {
+                sum += ints[i];
+            }
+            return sum;
+        }
+
+        static void RandomNumber(out int a) {
+            Random rnd = new Random();
+            a = rnd.Next();
+        }
+
+        static void Split(int number, out int c, out int d) {
+            string temp = number.ToString();
+            string a = temp.Substring(0, 2); // 23
+            int a1 = Int32.Parse(a.Substring(0, 1));
+            int b1 = Int32.Parse(a.Substring(1));
+            Swap(ref a1, ref b1);
+            c = Int32.Parse(a1 + "" + b1);
+            a = temp.Substring(2);
+            a1 = Int32.Parse(a.Substring(0, 1));
+            b1 = Int32.Parse(a.Substring(1));
+            Swap(ref a1, ref b1);
+            d = Int32.Parse(a1 + "" + b1);
+        }
+
+        static void PassByReference(ref int input) {
+            input *= 2;
+        }
+
+        static void Swap(ref int a, ref int b) {
+            int temp = a;
+            a = b;
+            b = temp;
+        }
+
+        static IEnumerable<int> YieldRectangularArray() {
+            // kompilator infererer typen
+            var a = new[,] {
+                { 1,2,3,4},
+                { 2,2,4,4},
+                { 2,2,4,4}
+            };
+
+            for (int i = 0; i < a.GetLength(0); i++) {
+                for (int j = 0; j < a.GetLength(1); j++) {
+                    yield return a[i,j];
+                }
+            }
+        }
+
+        static IEnumerable<int> YieldJaggedArray() {
+            var jagged = new int[][] {
+                new int[] {2,3,4,3},
+                new int[] {4,6,8},
+                new int[] {8,9}
+            };
+
+            for (int i = 0; i < jagged.Length; i++) {
+                for (int j = 0; j < jagged[i].Length; j++) {
+                    yield return jagged[i][j];
+                }
+            }
         }
 
         public static void ShowGalaxies() {
