@@ -7,6 +7,19 @@ namespace CsharpPractise {
     using System.IO;
     using System.Text.RegularExpressions;
     using System.Threading;
+    using R = System.Reflection;
+    using System.Threading.Tasks;
+    using System.Linq;
+    using Indexing;
+    /*
+        *****************************************************************************************
+            Dette inneholder kun kode for å teste og lære nye aspekter i C#.
+            Dette innholdet må ikke brukes til å vurdere hvorvidt oppsett og struktur er god.
+            Det er kun små programmer som ikke skal brukes til annet enn ny lærdom.
+        *****************************************************************************************
+    */
+
+    class Refleksjon { R.PropertyInfo p; }
     class Product {
         readonly string name;
         public string Name { get; }
@@ -31,127 +44,212 @@ namespace CsharpPractise {
             return string.Format($"{name}: {price}");
         }
     }
-    public class Program {
-        /*
-        *****************************************************************************************
-            Dette klassen Program inneholder kun kode for å teste og lære nye aspekter i C#.
-            Dette innholdet må ikke brukes til å vurdere hvorvidt oppsett og struktur er god.
-            Det er kun små programmer som ikke skal brukes til annet enn ny lærdom.
-        *****************************************************************************************
-        */
-        internal static void Main(string[] args) {
-            Console.WriteLine("Rectangular array:");
-           foreach (var i in YieldRectangularArray()) {
-                Console.Write($"{i} ");
-            }
+    public sealed class Program {
 
-            Console.WriteLine("\nJagged array:");
-            foreach (var item in YieldJaggedArray()) {
-                Console.Write("{0} ", item);
-            }
-            //TestMemento.Test();
-            //string output = "\nDette er en melding til alle brukere av innenlands flyreiser:";
-            //foreach (var letter in output.ToCharArray()) {
-            //    Console.Write(letter);
-            //    Thread.Sleep(100);
+        public static void Main(string[] args) {
+            //Indexing.Sentence sentence = new Indexing.Sentence();
+            //string word = sentence[0];
+            //Console.WriteLine(word);
+
+            //Console.WriteLine("Rectangular array:");
+            //foreach (var i in YieldRectangularArray()) {
+            //    Console.Write($"{i} ");
             //}
-            //A a = new D();
-            //a.DoWork();
-            //((D)a).DoWork();
 
-            //Derived derived = new Derived();
-            //derived.DoWork();
-            //((Base)derived).DoWork();
-            
-            
+            //Console.WriteLine("\nJagged array:");
+            //foreach (var item in YieldJaggedArray()) {
+            //    Console.Write("{0} ", item);
+            //}
+            ////TestMemento.Test();
+            ////string output = "\nDette er en melding til alle brukere av innenlands flyreiser:";
+            ////foreach (var letter in output.ToCharArray()) {
+            ////    Console.Write(letter);
+            ////    Thread.Sleep(100);
+            ////}
+            ////A a = new D();
+            ////a.DoWork();
+            ////((D)a).DoWork();
 
-            int[] array2 = new int[] { 2, 6, 4, 8, 9, 5, 7, 1, 4, 55, 6, 8, 3, 8, 3, 31, 0 };
-            //Console.WriteLine("\n\nSortedSet");
-            //SortedSet<int> sorted = new SortedSet<int>(array2);
-            //foreach (int n in sorted)
-            //    Console.Write("{0}", n);
+            ////Derived derived = new Derived();
+            ////derived.DoWork();
+            ////((Base)derived).DoWork();
 
-            Console.WriteLine("\n\nOriginal Array2:");
-            foreach (int n in array2)
-                Console.Write("{0} ", n);
 
-            Console.WriteLine("\n\nReversed array2:");
-            reverse(array2);
-            foreach (int n in array2)
-                Console.Write("{0} ", n);
 
-            Console.WriteLine("\n\nSorted ascending:");
-            SortAscending(array2);
-            foreach (int n in array2)
-                Console.Write("{0} ", n);
+            //int[] array2 = new int[] { 2, 6, 4, 8, 9, 5, 7, 1, 4, 55, 6, 8, 3, 8, 3, 31, 0 };
+            ////Console.WriteLine("\n\nSortedSet");
+            ////SortedSet<int> sorted = new SortedSet<int>(array2);
+            ////foreach (int n in sorted)
+            ////    Console.Write("{0}", n);
 
-            Console.WriteLine("\n\nSorted descending:");
-            SortDescending(array2);
-            foreach (var item in array2) {
-                Console.Write("{0} ", item);
-                
+            //Console.WriteLine("\n\nOriginal Array2:");
+            //foreach (int n in array2)
+            //    Console.Write("{0} ", n);
+
+            //Console.WriteLine("\n\nReversed array2:");
+            //reverse(array2);
+            //foreach (int n in array2)
+            //    Console.Write("{0} ", n);
+
+            //Console.WriteLine("\n\nSorted ascending:");
+            //SortAscending(array2);
+            //foreach (int n in array2)
+            //    Console.Write("{0} ", n);
+
+            //Console.WriteLine("\n\nSorted descending:");
+            //SortDescending(array2);
+            //foreach (var item in array2) {
+            //    Console.Write("{0} ", item);
+
+            //}
+
+            //Console.WriteLine("\n\nRemoved duplicates:");
+            //SortAscending(array2);
+            //foreach (int item in RemoveDuplicate(array2)) {
+            //    Console.Write("{0} ", item);
+            //}
+
+            //Console.WriteLine("\n\nPrint fibonacci:");
+            //PrintFibonacci(10);
+
+            //Console.WriteLine("\n\nFibonacci to array:");
+            //foreach (int n in FibonacciToArray(10))
+            //    Console.Write("{0} ", n);
+
+            //Console.WriteLine("\n\nCount numbers in array2:");
+            //foreach (var item in CountNumbers(new List<int>(array2)))
+            //    Console.WriteLine("Key: {0} => {1}", item.Key, item.Value);
+
+
+            ////Console.WriteLine("\n\nEnter a string:");
+            ////string input = Console.ReadLine();
+            ////Console.WriteLine("You wrote: {0}", input);
+            //////SortedSet<char> set = new SortedSet<char>(CountCharactes(input).Keys); // alle nøkler
+            ////IDictionary<char, Dictionary<char, int>> dictionary = MapWordsAlphabetic(new List<char>(ToChar(input)));
+            ////PrintDictionary(dictionary);
+
+            ////WriteToFile(@"C:\Users\Stian\Desktop\test.txt", "Dette er en ny linje1.");
+
+
+            //int a, b;
+            //Split(2343, out a, out b);
+
+            //int randomNumber;
+            //RandomNumber(out randomNumber);
+            ////Console.WriteLine(Sum(2, 3, 2, 3, 2, 3, 2));
+
+            //OptionalParamter(); // skriver ut 10, 0
+            //OptionalParamter(100); // skriver ut 100, 0
+            //OptionalParamter(y: 90); // skriver 10, 90
+            //OptionalParamter(y: 9, x: 2); // skriver 2, 9 (x, y)
+
+            ////Console.WriteLine($"Kaller array: { NullOperator("k",null,"u")[0]?.ToUpper() ?? "NULLL" }");
+
+            //NullOperatorIsNull();
+            //TestGoto2();
+
+            //del myDel = x => x * x;
+            //int j = myDel(5);
+
+            //TestDelegate testDelegate = n => {
+            //    string s = n + " World";
+            //    Console.WriteLine(s);
+            //};
+            //testDelegate("Hello");
+
+            Func<int, bool> myFunc = x => x == 5;
+            bool result = myFunc(4); // false
+
+            int[] numbers = { 5, 4, 1, 3, 9, 8, 6, 7, 2, 0 };
+            int oddNumbers = numbers.Count(n => n % 2 != 0);
+            var firstNumberLessThan6 = numbers.TakeWhile(n => n < 6);
+            var firstSmallNumbers = numbers.TakeWhile((n, index) => n >= index);
+
+            MyCollection<int> myCol = new MyCollection<int>(10);
+            for (int i = 0; i < myCol.Length; i++) {
+                myCol[i] = 2 * i;
             }
 
-            Console.WriteLine("\n\nRemoved duplicates:");
-            SortAscending(array2);
-            foreach (int item in RemoveDuplicate(array2)) {
-                Console.Write("{0} ", item);
-            }
-
-            Console.WriteLine("\n\nPrint fibonacci:");
-            PrintFibonacci(10);
-
-            Console.WriteLine("\n\nFibonacci to array:");
-            foreach (int n in FibonacciToArray(10))
-                Console.Write("{0} ", n);
-
-            Console.WriteLine("\n\nCount numbers in array2:");
-            foreach (var item in CountNumbers(new List<int>(array2)))
-                Console.WriteLine("Key: {0} => {1}", item.Key, item.Value);
-
-
-            //Console.WriteLine("\n\nEnter a string:");
-            //string input = Console.ReadLine();
-            //Console.WriteLine("You wrote: {0}", input);
-            ////SortedSet<char> set = new SortedSet<char>(CountCharactes(input).Keys); // alle nøkler
-            //IDictionary<char, Dictionary<char, int>> dictionary = MapWordsAlphabetic(new List<char>(ToChar(input)));
-            //PrintDictionary(dictionary);
-
-            //WriteToFile(@"C:\Users\Stian\Desktop\test.txt", "Dette er en ny linje1.");
-
-
-            int a, b;
-            Split(2343, out a, out b);
-
-            int randomNumber;
-            RandomNumber(out randomNumber);
-            //Console.WriteLine(Sum(2, 3, 2, 3, 2, 3, 2));
-
-            OptionalParamter(); // skriver ut 10, 0
-            OptionalParamter(100); // skriver ut 100, 0
-            OptionalParamter(y: 90); // skriver 10, 90
-            OptionalParamter(y: 9, x: 2); // skriver 2, 9 (x, y)
-
-            Console.WriteLine($"Kaller array: { NullOperator("k",null,"u")[0]?.ToUpper() ?? "NULLL" }");
+            Console.WriteLine("myCol contains: ");
+            foreach (var i in myCol)
+                Console.Write($"{i} ");
+            
 
             Console.WriteLine("\n\nPress a key to quit...");
             Console.ReadKey();
+        } // end Main
+        
+
+        static int Endre1(ref int a) => a = 2;
+        static void Endre2(out int a) => a = 10;
+
+        private static async void Click() {
+            await ExampleMethodAsync();
+            Console.WriteLine("\r\nControl returned to Click.\r\n");
+        }
+        static async Task ExampleMethodAsync() {
+            await Task.Delay(1000);
         }
 
+        delegate int del(int i);
+        delegate void TestDelegate(string s);
+        public delegate TResult Func<T, TResult>(T arg0);
+
+        static void TestGoto2() {
+            int i = 1;
+            startLoop:
+            if (i <= 5) {
+                Console.Write(i + " ");
+                i++;
+                goto startLoop;
+            }
+        }
+
+        public enum Values : byte {a = 2, b = a * 2, c = b * 2 } 
+
+        static void TestGoto() {
+            int x = 10;
+
+            switch (x) {
+                case 9:
+                    Console.Write("Ni");
+                    break;
+                case 88:
+                    Console.Write("Joker");
+                    break;
+                case 10:
+                    goto case 88;
+                default:
+                    Console.Write("Tapte");
+                    break;
+            }
+        }
+
+
+        static void NullOperatorIsNull() {
+            Random r = null;
+            int? result = r?.Next(1, 20);
+            int output = result ?? 1;
+            Console.WriteLine(output); // 1
+        }
+        static int Foo1(int x) => x * 2;
+        static void Foo2(int x) => Console.WriteLine(x);
+
         static string[] NullOperator(params string[] strings) {
+            // x?.?y.z tilsvarer x == null ? null : (x.y == null) ? null : x.y.x);
             string[] output = new string[strings.Length];
 
-            Console.WriteLine((strings[0]?.ToLower() != null) ? "Ikke null" : "Jeg var null");
+            Console.WriteLine((strings[0]?.ToLower() != null) ? "Ikke null" : "Jeg var visst null");
 
             for (int i = 0; i < strings.Length; i++) {
-                output[i] = strings[i] ?? "Jeg var null";
+                output[i] = strings[i] ?? "Jeg er null"; // hvis denne posisjonen er null, få default verdi
             }
-            output[0] = strings[1]?.ToUpper();
+            output[0] = strings[1]?.ToUpper(); // gi meg denne verdien ToUpper hvis den ikke er null, ellers null.
             return output;
         }
 
         static void OptionalParamter(int x = 10, int y = 0) {
-            Console.WriteLine($"Default paramterer er {x}, {y}");
+            Console.WriteLine($"Default paramtere er {x}, {y}");
         }
 
         static int Sum(params int[] ints) {
@@ -201,7 +299,7 @@ namespace CsharpPractise {
 
             for (int i = 0; i < a.GetLength(0); i++) {
                 for (int j = 0; j < a.GetLength(1); j++) {
-                    yield return a[i,j];
+                    yield return a[i, j];
                 }
             }
         }
@@ -243,7 +341,7 @@ namespace CsharpPractise {
 
         public static void YieldExample2() {
             var navn = "donald duck";
-            foreach (var letter in ToChar(navn)) {
+            foreach (var letter in navn.ToCharArray()) {
                 Console.Write($"{letter}");
             }
         }
@@ -285,12 +383,12 @@ namespace CsharpPractise {
             IDictionary<char, Dictionary<char, int>> dictionary = new Dictionary<char, Dictionary<char, int>>();
             SortedSet<char> sortedCharacters = new SortedSet<char>(list); // ikke nødvendig
             new List<char>(sortedCharacters).ForEach((char key) => dictionary.Add(key, new Dictionary<char, int>()));
-            
+
             new List<char>(list).ForEach((char key) => {
                 if (dictionary.ContainsKey(key)) {
                     Dictionary<char, int> inner;
                     if (dictionary.TryGetValue(key, out inner)) {
-                        if (inner.ContainsKey(key)) 
+                        if (inner.ContainsKey(key))
                             inner[key]++;
                         else
                             inner.Add(key, 1);
@@ -311,7 +409,7 @@ namespace CsharpPractise {
                 }
             });
         }
-        
+
 
         private static void WriteToFile(string path, string newText) {
             using (StreamWriter writer = new StreamWriter(path)) {
@@ -366,15 +464,22 @@ namespace CsharpPractise {
             return array;
         }
 
-        static void FizzBuzz(int n) {
+        // Read only example**************
+        int money = 9;
+        public decimal Worth => money; // get
+        // public decimal Init { get; set; } = 100;
+        // *******************************
+
+        public static string FizzBuzz(int n) {
             if (n > 0 && n <= 100) {
                 if (n % 15 == 0)
-                    Console.WriteLine("\nFizzBuzz");
+                    return "FizzBuzz";
                 else if (n % 5 == 0)
-                    Console.WriteLine("\nBuzz");
+                    return "Buzz";
                 else if (n % 3 == 0)
-                    Console.WriteLine("\nFizz");
+                    return "Fizz";
             }
+            return null;
         }
 
         static void reverse(int[] a) {
@@ -405,7 +510,7 @@ namespace CsharpPractise {
             for (int i = 0; i < a.Length - 1; i++) {
                 for (int j = i; j < a.Length - 1; j++) {
                     if (a[i] < a[j + 1] && i < (j + 1)) {
-                       int temp = a[j + 1];
+                        int temp = a[j + 1];
                         a[j + 1] = a[i];
                         a[i] = temp;
                     }
@@ -432,73 +537,97 @@ namespace CsharpPractise {
             Console.WriteLine(text);
             return null;
         }
-    }
 
-    internal delegate void Delegate(String input);
-
-    class Base {
-        public virtual void DoWork() {
-            Console.WriteLine("DoWork from Base");
-        }
-    }
-
-    class Derived : Base {
-
-        public new void DoWork() {
-            Console.WriteLine("DOwork declared from Derived");
-        }
-    }
-
-
-    class A {
-        internal virtual void DoWork() {
-            Console.WriteLine("Base class A");
-        }
-
-        
-
-        internal void Tester(Delegate d) {
+        public static bool IsOdd(int i) {
+            return (i % 2) != 0;
 
         }
-    }
 
-    class B : A {
-        internal new virtual void DoWork() {
-            Console.WriteLine("Derived class B");
-        }
-    }
-    class C : B {
-        internal sealed override void DoWork() {
-            Console.WriteLine("Derived class C");
-        }
-    }
-     class D : C {
-        internal new void DoWork() {
-            Console.WriteLine("Derived class D new DoWork()");
-        }
-    }
+        internal delegate void Delegate(String input);
 
-    struct GenericList<T> {
-        internal void Add(T input) { }
-    }
-
-    class Stian {
-        readonly string myName = "Stian";
-    }
-
-    class Galaxies {
-        public IEnumerable<Galaxy> NextGalaxy {
-            get {
-                yield return new Galaxy() { Name = "Tadpole", MegaLightYears = 400 };
-                yield return new Galaxy() { Name = "Pinwheel", MegaLightYears = 25 };
-                yield return new Galaxy() { Name = "Milky Way", MegaLightYears = 0 };
-                yield return new Galaxy() { Name = "Andromeda", MegaLightYears = 3 };
+        class Base {
+            public virtual void DoWork() {
+                Console.WriteLine("DoWork from Base");
             }
         }
-    }
 
-    class Galaxy {
-        public String Name { get; set; }
-        public int MegaLightYears { get; set; }
+        class Derived : Base {
+
+            public new void DoWork() {
+                Console.WriteLine("DOwork declared from Derived");
+            }
+        }
+
+
+        class A {
+            internal virtual void DoWork() {
+                Console.WriteLine("Base class A");
+            }
+
+
+
+            internal void Tester(Delegate d) {
+
+            }
+        }
+
+        class B : A {
+            internal new virtual void DoWork() {
+                Console.WriteLine("Derived class B");
+            }
+        }
+        class C : B {
+            internal sealed override void DoWork() {
+                Console.WriteLine("Derived class C");
+            }
+        }
+        class D : C {
+            internal new void DoWork() {
+                Console.WriteLine("Derived class D new DoWork()");
+            }
+        }
+
+        struct GenericList<T> {
+            internal void Add(T input) { }
+        }
+
+        class Stian {
+            readonly string myName = "Stian";
+        }
+
+        class Galaxies {
+            public IEnumerable<Galaxy> NextGalaxy {
+                get {
+                    yield return new Galaxy() { Name = "Tadpole", MegaLightYears = 400 };
+                    yield return new Galaxy() { Name = "Pinwheel", MegaLightYears = 25 };
+                    yield return new Galaxy() { Name = "Milky Way", MegaLightYears = 0 };
+                    yield return new Galaxy() { Name = "Andromeda", MegaLightYears = 3 };
+                }
+            }
+        }
+
+        class Galaxy {
+            public String Name { get; set; }
+            public int MegaLightYears { get; set; }
+        }
+
+        class Diverse {
+            decimal x;
+            public decimal X {
+                get { return x; }
+                private set { x = Math.Round(value, 2); }
+            }
+
+            static string[] IndexingStringToNewStringArray() {
+                string[] s = { "perfekt", "hei", null, "på", "badet" };
+                string[] output = new string[s.Length];
+
+                for (int i = s.Length - 1; i >= 0; i++) {
+                    output[i] = s[i]?.ToUpper() ?? "default";
+                }
+
+                return output;
+            }
+        }
     }
 } // end namespace
